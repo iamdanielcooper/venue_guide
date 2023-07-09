@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "49253dc2-3fd8-43c7-b3d3-d0fb0acd0913",
+		"name": "Venue Guide",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET all venues",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/venues",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET venue by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/venues/7ab5f123-fa60-40de-ad08-5bc4bed18108",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues",
+						"7ab5f123-fa60-40de-ad08-5bc4bed18108"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST add venue",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Village Underground\",\n    \"capacity\": 2000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/venues",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
