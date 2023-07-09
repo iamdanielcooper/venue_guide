@@ -1,5 +1,6 @@
 package com.example.venue_guide.venueData
 
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -13,5 +14,5 @@ class VenueDataController(val service: VenueDataService) {
     fun getAllVenues(): List<VenueData> = service.getAllVenues()
 
     @PostMapping("/venues")
-    fun addVenue(@RequestBody body: VenueData) = service.addVenue(body)
+    fun addVenue(@Valid @RequestBody body: VenueData) = service.addVenue(body)
 }
