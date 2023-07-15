@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
@@ -24,6 +24,7 @@ class UsersControllerTest(@Autowired val mockMvc: MockMvc) {
     fun ifAllRequiredFieldsArePassedReturns200OK() {
 
         val testUser = User(
+            "1",
             "Test",
             "email",
             "password"
@@ -31,7 +32,29 @@ class UsersControllerTest(@Autowired val mockMvc: MockMvc) {
 
         val jsonBody = ObjectMapper().writeValueAsString(testUser)
 
-        every { usersService.addUser(testUser) } returns "Adding user to database";
+        every { usersService.addUser(testUser) } returns Unit;
+        print(usersService.addUser(testUser))
+
+        mockMvc.perform(post("/api/v1/users")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(jsonBody)
+        ).andExpect(status().isOk)
+
+    }
+
+    @Test
+    fun ifIdIsNotPassedReturns200OK() {
+
+        val testUser = User(
+            null,
+            "Test",
+            "email",
+            "password"
+        )
+
+        val jsonBody = ObjectMapper().writeValueAsString(testUser)
+
+        every { usersService.addUser(testUser) } returns Unit;
         print(usersService.addUser(testUser))
 
         mockMvc.perform(post("/api/v1/users")
@@ -73,6 +96,36 @@ class UsersControllerTest(@Autowired val mockMvc: MockMvc) {
         mockMvc.perform(post("/api/v1/users")
             .contentType(MediaType.APPLICATION_JSON)
             .content(testUser)
+        ).andExpect(status().is4xxClientError)
+
+    }
+
+    @Test
+    fun getAllUsersReturns200OK() {
+
+        every { usersService.getAllUsers() } returns listOf<User>(
+            User("","", "", "")
+        );
+
+        mockMvc.perform(get("/api/v1/users")
+        ).andExpect(status().isOk)
+
+    }
+
+    @Test
+    fun deleteUserReturns200OK() {
+
+        every { usersService.deleteUser("123") } returns "Updated";
+
+        mockMvc.perform(delete("/api/v1/users/123")
+        ).andExpect(status().isOk)
+
+    }
+
+    @Test
+    fun deleteUserWithNoUsernameReturns4xxOK() {
+
+        mockMvc.perform(delete("/api/v1/users")
         ).andExpect(status().is4xxClientError)
 
     }

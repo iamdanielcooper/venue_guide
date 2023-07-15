@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS venues;
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE IF NOT EXISTS venues (
-id       VARCHAR(60)  PRIMARY KEY,
-name     VARCHAR      NOT NULL,
-capacity INTEGER      NOT NULL,
-accessibility INTEGER
+CREATE TABLE IF NOT EXISTS users (
+id           VARCHAR(60)    PRIMARY KEY,
+username     VARCHAR        NOT NULL,
+email        VARCHAR        NOT NULL,
+password     VARCHAR        NOT NULL
 );
